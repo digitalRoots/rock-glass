@@ -32,9 +32,9 @@ namespace :site do
       sh "git config --global user.email '#{ENV['GIT_EMAIL']}'"
       sh "git config --global push.default simple"
       # USERNAME = `printf '%s' $(cd .. && printf '%s' ${PWD##*/})`
-      USERNAME = `echo $TRAVIS_REPO_SLUG | cut --fields=1 --delimiter='/'`
+      USERNAME = `printf '%s' $(echo $TRAVIS_REPO_SLUG | cut --fields=1 --delimiter='/')`
       # REPO = `printf '%s' $(cd . && printf '%s\n' ${PWD##*/})`
-      REPO = `echo $TRAVIS_REPO_SLUG | cut --fields=2 --delimiter='/'`
+      REPO = `printf '%s' $(echo $TRAVIS_REPO_SLUG | cut --fields=2 --delimiter='/')`
     else
       USERNAME = CONFIG["username"] || ENV['GIT_NAME']
       REPO = CONFIG["repo"] || "#{USERNAME}.github.io"
