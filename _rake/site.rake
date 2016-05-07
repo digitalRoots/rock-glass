@@ -54,16 +54,18 @@ namespace :site do
       end
     end
 
+    # Make sure destination folder exists as git repo
+    # check_destination
+    CONFIG["destination"] = "../deploy/#{REPO}"
+
     puts "=== === === === === ==="
     puts "USERNAME = #{USERNAME}"
     puts "REPO = #{REPO}"
     puts "SOURCE_BRANCH = #{SOURCE_BRANCH}"
     puts "DESTINATION_BRANCH = #{DESTINATION_BRANCH}"
+    puts "CONFIG[\"destination\"] = #{CONFIG["destination"]}"
+    puts "git clone https://#{ENV['GIT_NAME']}:#{ENV['GH_TOKEN']}@github.com/#{USERNAME}/#{REPO}.git #{CONFIG["destination"]}"
     puts "=== === === === === ==="
-
-    # Make sure destination folder exists as git repo
-    # check_destination
-    CONFIG["destination"] = "../deploy/#{REPO}"
     unless Dir.exist? CONFIG["destination"]
       sh "git clone https://#{ENV['GIT_NAME']}:#{ENV['GH_TOKEN']}@github.com/#{USERNAME}/#{REPO}.git #{CONFIG["destination"]}"
     end
