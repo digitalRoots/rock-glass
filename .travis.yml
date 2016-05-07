@@ -6,7 +6,7 @@ rvm:
 before_install:
   - sudo apt-get -qq update
   - apt-cache search ruby2
-  - sudo apt-get install -y ruby2.2-dev
+  - sudo apt-get install -y ruby2.0-dev
   - gem update --system
 install:
 - bundle install
