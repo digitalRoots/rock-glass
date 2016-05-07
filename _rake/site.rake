@@ -54,6 +54,13 @@ namespace :site do
       end
     end
 
+    puts "=== === === === === ==="
+    puts "USERNAME = #{USERNAME}"
+    puts "REPO = #{REPO}"
+    puts "SOURCE_BRANCH = #{SOURCE_BRANCH}"
+    puts "DESTINATION_BRANCH = #{DESTINATION_BRANCH}"
+    puts "=== === === === === ==="
+
     # Make sure destination folder exists as git repo
     # check_destination
     CONFIG["destination"] = "../deploy/#{REPO}"
