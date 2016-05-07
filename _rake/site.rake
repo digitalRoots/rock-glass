@@ -1,4 +1,5 @@
-REPO = CONFIG["repo"] || "#{USERNAME}.github.io"
+# REPO = CONFIG["repo"] || "#{USERNAME}.github.io"
+REPO = `${PWD##*/}`
 
 # Determine source and destination branch
 # User or organization: source -> master
@@ -15,13 +16,13 @@ end
 namespace :site do
   desc "Generate the site"
   task :build do
-    check_destination
+    # check_destination
     sh "bundle exec jekyll build"
   end
 
   desc "Generate the site and serve locally"
   task :serve do
-    check_destination
+    # check_destination
     sh "bundle exec jekyll serve"
   end
 
@@ -43,10 +44,22 @@ namespace :site do
       sh "git config --global user.name '#{ENV['GIT_NAME']}'"
       sh "git config --global user.email '#{ENV['GIT_EMAIL']}'"
       sh "git config --global push.default simple"
+      USERNAME = `$(cd .. && printf '%s\n' ${PWD##*/})`
+      if REPO == "#{USERNAME}.github.io".downcase
+        SOURCE_BRANCH = CONFIG['branch'] || "source"
+        DESTINATION_BRANCH = "master"
+      else
+        SOURCE_BRANCH = "master"
+        DESTINATION_BRANCH = "gh-pages"
+      end
     end
 
     # Make sure destination folder exists as git repo
-    check_destination
+    # check_destination
+    CONFIG["destination"] = "../deploy/#{REPO}"
+    unless Dir.exist? CONFIG["destination"]
+      sh "git clone https://#{ENV['GIT_NAME']}:#{ENV['GH_TOKEN']}@github.com/#{USERNAME}/#{REPO}.git #{CONFIG["destination"]}"
+    end
 
     sh "git checkout #{SOURCE_BRANCH}"
     Dir.chdir(CONFIG["destination"]) { sh "git checkout #{DESTINATION_BRANCH}" }
