@@ -9,11 +9,10 @@ before_install:
 - gem update --system
 - gem install rake
 - env
-install:
+# install:
 script:
 - bundle exec jekyll doctor
 - rake site:deploy --quiet
 env:
   global:
   - secure: QFNPO5KqNp9LaKxbhH1uIw/1L5ExzJNb7oeBxkZCAMWtC+VTcEIwgL+OE1j68POzPh18Ud5w1j+f75xCB/mo8lcX79oK94M3JfALlkUDBz3q4bZhBufSj5H4wBVvHEb+lAuisZo046/8CX1ZS7QEZesJ9hERboPtidakQm85Y26hclwCP2t+roNu1ZXfSFyJtP6ob+w9vJu90Dm7dV9/gDkpr75feNMjK+eSPcCv30r67HgTGeaMeMqzO9pBz8N4lnYubQ7q8w8d3MT8An9q74ayd1fh6OeAeT8YRNcjYxDMvpEipWaMWeV84/2XGb7qnwg8xxc2xx+z6l6CvJvgL1umGsEu62n8EUtS/cQJx3u7Z0yWINnSr+V1K7jYRFGFhAiS0OnlPGNnrE5kxsYnXZGhZHe7bFe3N7t2rdNKzowkwGqmelRvK85aLkMP37h2Fsrfw0GeYkVLGFmNAEb0BJzNSgD4cRyVhwjQ7RyAaz0a9zOm1wU/Zfzh9Sv4CSYPMOGl/s3HiHdA4rlK9IMDgFvloqOkSXeqy2oot/mREklhD93VSAnAMVyLSsOGOfFkP0JLwAvblUcMjpXvztAzsi3XOVrbCoQF4ZTy7IN2orXkixICeneHWCoVNg+aUlTVQmUsICP8JVjn/+iZbiPupiuZKB3oiDcAzxJekhyMdbg=
-  - DEBIAN_FRONTEND: interactive
