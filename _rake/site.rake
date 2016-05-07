@@ -1,17 +1,4 @@
-# REPO = CONFIG["repo"] || "#{USERNAME}.github.io"
-REPO = `printf '%s' $(cd . && printf '%s\n' ${PWD##*/})`
 
-# Determine source and destination branch
-# User or organization: source -> master
-# Project: master -> gh-pages
-# Name of source branch for user/organization defaults to "source"
-if REPO == "#{USERNAME}.github.io"
-  SOURCE_BRANCH = CONFIG['branch'] || "source"
-  DESTINATION_BRANCH = "master"
-else
-  SOURCE_BRANCH = "master"
-  DESTINATION_BRANCH = "gh-pages"
-end
 
 namespace :site do
   desc "Generate the site"
@@ -44,14 +31,25 @@ namespace :site do
       sh "git config --global user.name '#{ENV['GIT_NAME']}'"
       sh "git config --global user.email '#{ENV['GIT_EMAIL']}'"
       sh "git config --global push.default simple"
-      USERNAME = `printf '%s' $(cd .. && printf '%s' ${PWD##*/})`
-      if REPO == "#{USERNAME}.github.io".downcase
-        SOURCE_BRANCH = CONFIG['branch'] || "source"
-        DESTINATION_BRANCH = "master"
-      else
-        SOURCE_BRANCH = "master"
-        DESTINATION_BRANCH = "gh-pages"
-      end
+      # USERNAME = `printf '%s' $(cd .. && printf '%s' ${PWD##*/})`
+      USERNAME = `echo $TRAVIS_REPO_SLUG | cut --fields=1 --delimiter='/'`
+      # REPO = `printf '%s' $(cd . && printf '%s\n' ${PWD##*/})`
+      REPO = `echo $TRAVIS_REPO_SLUG | cut --fields=2 --delimiter='/'`
+    else
+      USERNAME = CONFIG["username"] || ENV['GIT_NAME']
+      REPO = CONFIG["repo"] || "#{USERNAME}.github.io"
+    end
+
+    # Determine source and destination branch
+    # User or organization: source -> master
+    # Project: master -> gh-pages
+    # Name of source branch for user/organization defaults to "source"
+    if REPO == "#{USERNAME}.github.io".downcase
+      SOURCE_BRANCH = CONFIG['branch'] || "source"
+      DESTINATION_BRANCH = "master"
+    else
+      SOURCE_BRANCH = "master"
+      DESTINATION_BRANCH = "gh-pages"
     end
 
     # Make sure destination folder exists as git repo
