@@ -1,5 +1,5 @@
 # REPO = CONFIG["repo"] || "#{USERNAME}.github.io"
-REPO = `printf '%s\n' $(cd . && printf '%s\n' ${PWD##*/})`
+REPO = `printf '%s' $(cd . && printf '%s\n' ${PWD##*/})`
 
 # Determine source and destination branch
 # User or organization: source -> master
@@ -44,7 +44,7 @@ namespace :site do
       sh "git config --global user.name '#{ENV['GIT_NAME']}'"
       sh "git config --global user.email '#{ENV['GIT_EMAIL']}'"
       sh "git config --global push.default simple"
-      USERNAME = `printf '%s\n' $(cd .. && printf '%s\n' ${PWD##*/})`
+      USERNAME = `printf '%s' $(cd .. && printf '%s' ${PWD##*/})`
       if REPO == "#{USERNAME}.github.io".downcase
         SOURCE_BRANCH = CONFIG['branch'] || "source"
         DESTINATION_BRANCH = "master"
