@@ -1,5 +1,5 @@
 # REPO = CONFIG["repo"] || "#{USERNAME}.github.io"
-REPO = `printf '%s\n' ${PWD##*/}`
+REPO = `printf '%s\n' $(cd . && printf '%s\n' ${PWD##*/})`
 
 # Determine source and destination branch
 # User or organization: source -> master
