@@ -1,3 +1,4 @@
+DEBIAN_FRONTEND: interactive
 sudo: required
 dist: trusty
 language: ruby
@@ -9,7 +10,7 @@ before_install:
 - gem update --system
 - gem install rake
 - env
-install: 
+install:
 script:
 - bundle exec jekyll doctor
 - rake site:deploy --quiet
