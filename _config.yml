@@ -18,7 +18,12 @@ paginate: 5
 paginate_path: "/blog/page:num/"
 
 # Build settings
-exclude: [README.md, Gemfile, Gemfile.lock]
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - Rakefile
+  - _rake
 sass:
   style: compressed
 
