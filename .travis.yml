@@ -2,11 +2,12 @@ sudo: required
 dist: trusty
 language: ruby
 rvm:
-- 2.3
+- 2.2.3
 before_install:
   - sudo apt-get -qq update
   - apt-cache search ruby2
-  - sudo apt-get install -y ruby2.3-dev
+  - sudo apt-get install -y ruby2.2-dev
+  - gem update --system
 install:
 - bundle install
 script:
